@@ -14,9 +14,9 @@ import AdministationPage from "./pages/Administation";
 
 const App: React.FC = () => {
   return (
-    <main className="max-w-screen-xl mx-auto mt-10 overflow-hidden">
+    <main className="relative max-w-screen-xl mx-auto mt-10 mb-60">
       <Navbar />
-      <div className="border-[16px] border-gray-100 h-screen">
+      <div className="border-[16px] border-gray-100 min-h-screen">
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/banking" element={<BankingPage />} />

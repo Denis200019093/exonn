@@ -12,7 +12,11 @@ import { cn } from "src/lib/utils";
 import NavigationItem from "./NavigationItem";
 import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 
-const NavigationList: React.FC = () => {
+interface NavigationListProps {
+  isHidden: boolean;
+}
+
+const NavigationList: React.FC<NavigationListProps> = ({ isHidden }) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const [horizontalScrollBarVisible, setHorizontalScrollBarVisible] =
@@ -80,14 +84,15 @@ const NavigationList: React.FC = () => {
       }
     };
   }, []);
+  // console.log(horizontalScrollBarVisible, isDragging);
 
   return (
-    <nav className="h-[42px] grow relative overflow-x-auto overflow-y-hidden" ref={blockRef}>
+    <nav className="h-[42px] grow overflow-y-hidden" ref={blockRef}>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
         <Droppable droppableId="lists" type="list" direction="horizontal">
           {(provided: DroppableProvided) => (
             <ul
-              className="flex items-center "
+              className="flex items-center"
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
@@ -103,7 +108,10 @@ const NavigationList: React.FC = () => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       className={cn(
-                        "text-gray-700 cursor-pointer border-t-[2.5px] border-t-transparent hover:bg-gray-100",
+                        "text-gray-700 cursor-pointer border-t-[2.5px] border-t-transparent bg-gray-100 hover:bg-gray-100",
+                        isHidden &&
+                          !nav.isPinned &&
+                          "opacity-0 pointer-events-none",
                         location.pathname === nav.href &&
                           "border-t-blue-500 bg-gray-100"
                       )}

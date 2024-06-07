@@ -5,13 +5,13 @@ import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 import { NavigationItemTypes } from "src/lib/types";
 import { cn } from "src/lib/utils";
 
-interface TestProps {
+interface NavigationItemProps {
   nav: NavigationItemTypes;
   isDragging: boolean;
   horizontalScrollBarVisible: boolean;
 }
 
-const NavigationItem: React.FC<TestProps> = memo(
+const NavigationItem: React.FC<NavigationItemProps> = memo(
   ({ nav, isDragging, horizontalScrollBarVisible }) => {
     const { navigationData, deleteFromOriginalAddToHidden } =
       useNavbarNavigation();
@@ -20,11 +20,11 @@ const NavigationItem: React.FC<TestProps> = memo(
       threshold: 0.99,
       initialInView: true,
     });
+    // console.log(entry, inView);
 
     useEffect(() => {
       if (!inView && !isDragging && horizontalScrollBarVisible) {
         console.log("wedlewldlweld");
-
         deleteFromOriginalAddToHidden(
           navigationData[navigationData.length - 1].id
         );
@@ -42,7 +42,8 @@ const NavigationItem: React.FC<TestProps> = memo(
         to={nav.href}
         ref={ref}
         className={cn(
-          "flex items-center gap-2 py-2 px-4 w-full h-full whitespace-nowrap"
+          "flex items-center gap-2 py-2 px-4 w-full h-full whitespace-nowrap",
+          !entry?.isIntersecting && "opacity-0 pointer-events-none"
         )}
       >
         {nav.title}

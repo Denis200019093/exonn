@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { PinIcon, PinOff } from "lucide-react";
 import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 import { useLocation } from "react-router-dom";
+import { cn } from "src/lib/utils";
 
-const Pin: React.FC = () => {
+interface PinProps {
+  isHidden: boolean;
+}
+
+const Pin: React.FC<PinProps> = ({ isHidden }) => {
   const { navigationData, togglePinState } = useNavbarNavigation();
 
   const location = useLocation();
@@ -25,7 +30,10 @@ const Pin: React.FC = () => {
 
   return (
     <div
-      className="px-3 py-2 border-t-[2.5px] cursor-pointer border-t-transparent"
+      className={cn(
+        "px-3 py-2 border-t-[2.5px] cursor-pointer border-t-transparent",
+        isHidden && "opacity-0 pointer-events-none"
+      )}
       onClick={setPinStateForPath}
     >
       {isPinned ? (

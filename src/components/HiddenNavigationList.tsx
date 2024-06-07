@@ -5,7 +5,13 @@ import { Link, useLocation } from "react-router-dom";
 import { cn } from "src/lib/utils";
 import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 
-const HiddenNavigationList: React.FC = () => {
+interface HiddenNavigationListProps {
+  isHidden: boolean;
+}
+
+const HiddenNavigationList: React.FC<HiddenNavigationListProps> = ({
+  isHidden,
+}) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const { hiddenNavigationData, deleteFromHiddenAddToOriginal } =
@@ -14,7 +20,9 @@ const HiddenNavigationList: React.FC = () => {
   const location = useLocation();
 
   return (
-    <div className="relative">
+    <div
+      className={cn("relative", isHidden && "opacity-0 pointer-events-none")}
+    >
       <button
         onClick={() => setShowDropdown(!showDropdown)}
         className={cn(
