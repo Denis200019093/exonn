@@ -10,3 +10,7 @@ export interface NavigationItemTypes {
   >;
   isPinned?: boolean;
 }
+
+export interface IHidden {
+  isHidden: boolean;
+}

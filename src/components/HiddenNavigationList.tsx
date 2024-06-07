@@ -3,15 +3,10 @@ import { ChevronDown, CircleX } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 import { cn } from "src/lib/utils";
+import { IHidden } from "src/lib/types";
 import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 
-interface HiddenNavigationListProps {
-  isHidden: boolean;
-}
-
-const HiddenNavigationList: React.FC<HiddenNavigationListProps> = ({
-  isHidden,
-}) => {
+const HiddenNavigationList: React.FC<IHidden> = ({ isHidden }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const { hiddenNavigationData, deleteFromHiddenAddToOriginal } =
@@ -20,9 +15,7 @@ const HiddenNavigationList: React.FC<HiddenNavigationListProps> = ({
   const location = useLocation();
 
   return (
-    <div
-      className={cn("relative", isHidden && "opacity-0 pointer-events-none")}
-    >
+    <div className={cn("relative", isHidden && "sticky-hidden")}>
       <button
         onClick={() => setShowDropdown(!showDropdown)}
         className={cn(

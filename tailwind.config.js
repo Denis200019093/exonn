@@ -1,8 +1,19 @@
 /** @type {import('tailwindcss').Config} */
+import plugin from "tailwindcss/plugin";
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addComponents }) => {
+      addComponents({
+        ".sticky-hidden": {
+          opacity: 0,
+          "pointer-events": "none",
+        },
+      });
+    }),
+  ],
 };

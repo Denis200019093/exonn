@@ -9,7 +9,6 @@ interface NavbarNavigationStore {
   setNavigationData: (navs: NavigationItemTypes[]) => void;
   deleteFromOriginalAddToHidden: (id: number) => void;
   deleteFromHiddenAddToOriginal: (id: number) => void;
-
   togglePinState: (navId: string) => void;
   updateNavigationOrder: (srcIndex: number, destIndex: number) => void;
 }

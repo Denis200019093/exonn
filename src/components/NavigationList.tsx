@@ -9,14 +9,11 @@ import {
 } from "@hello-pangea/dnd";
 
 import { cn } from "src/lib/utils";
+import { IHidden } from "src/lib/types";
 import NavigationItem from "./NavigationItem";
 import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 
-interface NavigationListProps {
-  isHidden: boolean;
-}
-
-const NavigationList: React.FC<NavigationListProps> = ({ isHidden }) => {
+const NavigationList: React.FC<IHidden> = ({ isHidden }) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const [horizontalScrollBarVisible, setHorizontalScrollBarVisible] =
@@ -77,10 +74,8 @@ const NavigationList: React.FC<NavigationListProps> = ({ isHidden }) => {
       handleResize();
 
       return () => {
-        if (block) {
-          block.removeEventListener("scroll", handleScroll);
-          window.removeEventListener("resize", handleResize);
-        }
+        block.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("resize", handleResize);
       };
     }
   }, []);
@@ -108,9 +103,7 @@ const NavigationList: React.FC<NavigationListProps> = ({ isHidden }) => {
                       {...provided.draggableProps}
                       className={cn(
                         "text-gray-700 cursor-pointer border-t-[2.5px] border-t-transparent bg-gray-100 hover:bg-gray-100",
-                        isHidden &&
-                          !nav.isPinned &&
-                          "opacity-0 pointer-events-none",
+                        isHidden && !nav.isPinned && "sticky-hidden",
                         location.pathname === nav.href &&
                           "border-t-blue-500 bg-gray-100"
                       )}

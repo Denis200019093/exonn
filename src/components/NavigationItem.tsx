@@ -42,7 +42,7 @@ const NavigationItem: React.FC<NavigationItemProps> = memo(
         ref={ref}
         className={cn(
           "flex items-center gap-2 py-2 px-4 w-full h-full whitespace-nowrap",
-          !entry?.isIntersecting && "opacity-0 pointer-events-none"
+          !entry?.isIntersecting && "sticky-hidden"
         )}
       >
         {nav.title}
