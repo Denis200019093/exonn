@@ -14,7 +14,7 @@ import AdministationPage from "./pages/Administation";
 
 const App: React.FC = () => {
   return (
-    <main className="max-w-screen-xl mx-auto mt-10">
+    <main className="max-w-screen-xl mx-auto mt-10 overflow-hidden">
       <Navbar />
       <div className="border-[16px] border-gray-100 h-screen">
         <Routes>

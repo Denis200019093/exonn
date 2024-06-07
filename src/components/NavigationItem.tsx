@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import useNavbarNavigation from "src/hooks/useNavbarNavigation";
@@ -15,18 +15,21 @@ const NavigationItem: React.FC<TestProps> = memo(({ nav, isDragging }) => {
   const { navigationData, deleteFromOriginalAddToHidden } =
     useNavbarNavigation();
 
-  const { ref, inView } = useInView({
+  const { ref, inView, entry } = useInView({
     threshold: 0.99,
     initialInView: true,
   });
+  console.log(entry?.isIntersecting);
 
-  // useEffect(() => {
-  //   if (!inView && !isDragging) {
-  //     deleteFromOriginalAddToHidden(
-  //       navigationData[navigationData.length - 1].id
-  //     );
-  //   }
-  // }, [deleteFromOriginalAddToHidden, inView, isDragging]);
+  useEffect(() => {
+    if (!inView && !isDragging) {
+      console.log("wedlewldlweld");
+
+      deleteFromOriginalAddToHidden(
+        navigationData[navigationData.length - 1].id
+      );
+    }
+  }, [deleteFromOriginalAddToHidden, inView, isDragging]);
 
   return (
     <Link
