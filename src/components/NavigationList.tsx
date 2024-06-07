@@ -82,7 +82,7 @@ const NavigationList: React.FC = () => {
   }, []);
 
   return (
-    <nav className="h-[42px] grow relative overflow-x-auto" ref={blockRef}>
+    <nav className="h-[42px] grow relative overflow-x-auto overflow-y-hidden" ref={blockRef}>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
         <Droppable droppableId="lists" type="list" direction="horizontal">
           {(provided: DroppableProvided) => (
