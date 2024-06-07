@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hello-pangea/dnd": "^16.6.0",
+    "@smakss/react-scroll-direction": "^4.1.0",
     "clsx": "^2.1.1",
     "flex-wrap-layout": "^0.13.0",
     "lucide-react": "^0.387.0",

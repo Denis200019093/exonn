@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   DragDropContext,
@@ -14,6 +14,11 @@ import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 
 const NavigationList: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
+
+  const [horizontalScrollBarVisible, setHorizontalScrollBarVisible] =
+    useState(false);
+
+  const blockRef = useRef(null);
 
   const { navigationData, updateNavigationOrder } = useNavbarNavigation();
 
@@ -45,13 +50,44 @@ const NavigationList: React.FC = () => {
     setIsDragging(true);
   };
 
+  useEffect(() => {
+    const block = blockRef.current;
+
+    const handleScroll = () => {
+      const isHorizontalScrollBarVisible =
+        block.scrollWidth > block.clientWidth;
+      setHorizontalScrollBarVisible(isHorizontalScrollBarVisible);
+    };
+
+    const handleResize = () => {
+      const isHorizontalScrollBarVisible =
+        block.scrollWidth > block.clientWidth;
+      setHorizontalScrollBarVisible(isHorizontalScrollBarVisible);
+    };
+
+    if (block) {
+      block.addEventListener("scroll", handleScroll);
+      window.addEventListener("resize", handleResize);
+
+      handleScroll();
+      handleResize();
+    }
+
+    return () => {
+      if (block) {
+        block.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("resize", handleResize);
+      }
+    };
+  }, []);
+
   return (
-    <nav className="h-[42px] grow relative">
+    <nav className="h-[42px] grow relative overflow-x-auto" ref={blockRef}>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
         <Droppable droppableId="lists" type="list" direction="horizontal">
           {(provided: DroppableProvided) => (
             <ul
-              className="flex items-center"
+              className="flex items-center "
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
@@ -75,8 +111,8 @@ const NavigationList: React.FC = () => {
                     >
                       <NavigationItem
                         nav={nav}
+                        horizontalScrollBarVisible={horizontalScrollBarVisible}
                         isDragging={isDragging}
-                        index={index}
                       />
                     </li>
                   )}
