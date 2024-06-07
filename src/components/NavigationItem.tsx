@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 import React, { memo, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { Link } from "react-router-dom";
-import useNavbarNavigation from "src/hooks/useNavbarNavigation";
-import { NavigationItemTypes } from "src/lib/types";
+
 import { cn } from "src/lib/utils";
+import { NavigationItemTypes } from "src/lib/types";
+import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 
 interface NavigationItemProps {
   nav: NavigationItemTypes;
@@ -20,11 +21,9 @@ const NavigationItem: React.FC<NavigationItemProps> = memo(
       threshold: 0.99,
       initialInView: true,
     });
-    // console.log(entry, inView);
 
     useEffect(() => {
       if (!inView && !isDragging && horizontalScrollBarVisible) {
-        console.log("wedlewldlweld");
         deleteFromOriginalAddToHidden(
           navigationData[navigationData.length - 1].id
         );

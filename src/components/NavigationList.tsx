@@ -22,7 +22,7 @@ const NavigationList: React.FC<NavigationListProps> = ({ isHidden }) => {
   const [horizontalScrollBarVisible, setHorizontalScrollBarVisible] =
     useState(false);
 
-  const blockRef = useRef(null);
+  const blockRef = useRef<HTMLDivElement | null>(null);
 
   const { navigationData, updateNavigationOrder } = useNavbarNavigation();
 
@@ -57,34 +57,33 @@ const NavigationList: React.FC<NavigationListProps> = ({ isHidden }) => {
   useEffect(() => {
     const block = blockRef.current;
 
-    const handleScroll = () => {
-      const isHorizontalScrollBarVisible =
-        block.scrollWidth > block.clientWidth;
-      setHorizontalScrollBarVisible(isHorizontalScrollBarVisible);
-    };
-
-    const handleResize = () => {
-      const isHorizontalScrollBarVisible =
-        block.scrollWidth > block.clientWidth;
-      setHorizontalScrollBarVisible(isHorizontalScrollBarVisible);
-    };
-
     if (block) {
+      const handleScroll = () => {
+        const isHorizontalScrollBarVisible =
+          block.scrollWidth > block.clientWidth;
+        setHorizontalScrollBarVisible(isHorizontalScrollBarVisible);
+      };
+
+      const handleResize = () => {
+        const isHorizontalScrollBarVisible =
+          block.scrollWidth > block.clientWidth;
+        setHorizontalScrollBarVisible(isHorizontalScrollBarVisible);
+      };
+
       block.addEventListener("scroll", handleScroll);
       window.addEventListener("resize", handleResize);
 
       handleScroll();
       handleResize();
-    }
 
-    return () => {
-      if (block) {
-        block.removeEventListener("scroll", handleScroll);
-        window.removeEventListener("resize", handleResize);
-      }
-    };
+      return () => {
+        if (block) {
+          block.removeEventListener("scroll", handleScroll);
+          window.removeEventListener("resize", handleResize);
+        }
+      };
+    }
   }, []);
-  // console.log(horizontalScrollBarVisible, isDragging);
 
   return (
     <nav className="h-[42px] grow overflow-y-hidden" ref={blockRef}>

@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-
-import NavigationList from "./NavigationList";
-import Pin from "./Pin";
-import { navs } from "src/lib/mocks";
-import useNavbarNavigation from "src/hooks/useNavbarNavigation";
-import HiddenNavigationList from "./HiddenNavigationList";
-import { cn } from "src/lib/utils";
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+
+import Pin from "./Pin";
+import { cn } from "src/lib/utils";
+import { navs } from "src/lib/mocks";
+import NavigationList from "./NavigationList";
+import HiddenNavigationList from "./HiddenNavigationList";
+import useNavbarNavigation from "src/hooks/useNavbarNavigation";
 
 const Navbar: React.FC = () => {
   const { navigationData, hiddenNavigationData, setNavigationData } =
@@ -20,8 +20,6 @@ const Navbar: React.FC = () => {
   }, [hiddenNavigationData.length, navigationData.length, setNavigationData]);
 
   const { ref, entry } = useInView({ threshold: 1 });
-
-  console.log(entry?.isIntersecting);
 
   return (
     <header
